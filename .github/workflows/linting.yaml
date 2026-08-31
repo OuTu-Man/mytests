@@ -1,43 +1,33 @@
-# .github/workflows/formatted.yml
+# .github/workflows/linting.yaml
 
-# 1. 工作流名称（可选，显示在 Actions 标签页）
-name: Formatted - balck & ruff
+name: Linting - black & ruff
 
-# 2. 触发条件 (on)：定义何时运行此工作流
 on:
   push:
-    branches: [ main ]  # 当代码推送到 main 分支时触发
+    branches: [ main ]
   pull_request:
-    branches: [ main ]  # 当有 PR 指向 main 分支时触发
+    branches: [ main ]
 
-# 3. 任务 (jobs)：工作流要执行的一个或多个任务
 jobs:
-  # 任务ID，可自定义
   build-and-test:
-    # 指定运行环境
     runs-on: ubuntu-latest
 
-    # 4. 步骤 (steps)：任务的具体执行步骤
     steps:
-      # 使用 actions/checkout 将代码签出到运行器上
       - uses: actions/checkout@v4
-
-      - name: install uv
-        run: pipx install uv
 
       - name: set up python
         uses: actions/setup-python@v5
         with:
           python-version: '3.14'
 
-      - name: install python uv dependencies
-        id: uv
+      - name: install uv
+        run: python -m pip install --upgrade pip && pip install uv
+
+      - name: install dependencies
         run: uv sync
 
-      - name: run black
-        if: always()
-        run: uv run black .
+      - name: run black check
+        run: uv run black --check .
 
-      - name: run ruff
-        if: always()
+      - name: run ruff check
         run: uv run ruff check .
