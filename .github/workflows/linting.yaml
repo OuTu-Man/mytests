@@ -26,9 +26,9 @@ jobs:
         run: pipx install uv
 
       - name: set up python
-        uses: actions/steup-python@v3
+        uses: actions/setup-python@v5
         with:
-          python-version: 3.14
+          python-version: '3.14'
 
       - name: install python uv dependencies
         id: uv
