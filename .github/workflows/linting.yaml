@@ -20,7 +20,7 @@ jobs:
     # 4. 步骤 (steps)：任务的具体执行步骤
     steps:
       # 使用 actions/checkout 将代码签出到运行器上
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v3
 
       - name: install uv
         run: pipx install uv
