@@ -4,11 +4,14 @@ version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.14"
-dependencies = []
+dependencies = [
+    "django>=6.1.1",
+]
 
 [dependency-groups]
 dev = [
     "black>=26.5.1",
+    "isort>=9.0.1",
     "ruff>=0.16.5",
 ]
 
