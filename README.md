@@ -20,3 +20,12 @@
     ```shell
     python manage.py runserver
     ```
+
+## Dockerfile
+
+    > 构建镜像
+
+    ```shell
+    docker build -t my-app .
+    docker run -d --name my-app -p 8000:8000 my-app
+    ```
