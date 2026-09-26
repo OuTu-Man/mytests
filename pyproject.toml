@@ -6,7 +6,11 @@ readme = "README.md"
 requires-python = ">=3.14"
 dependencies = [
     "django>=6.1.1",
+    "djangorestframework>=3.18.1",
     "gunicorn>=26.2.0",
+    "loguru>=0.7.3",
+    "openai>=3.19.2",
+    "python-dotenv>=1.2.3",
     "whitenoise>=6.12.0",
 ]
 
@@ -25,5 +29,22 @@ target-version = ['py314']
 line-length = 120
 
 [tool.ruff.lint]
-select = ["E", "F", "I"]
-ignore = ["E501"]
+select = [
+    "E",
+    "W",
+    "F",
+    "I",
+    "B",
+    "C4",
+    "UP",
+    "SIM",
+    "RUF",
+]
+ignore = [
+    "E501",
+    "RUF001",
+    "RUF002",
+    "RUF003",
+    # Django 的迁移、模型 Meta、admin 类属性要求使用字面量，RUF012 在此为误报
+    "RUF012",
+]
