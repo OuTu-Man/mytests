@@ -1,4 +1,3 @@
-from django.conf import settings
 from openai import OpenAI
 
 from agents.models import AIPlatform
@@ -21,6 +20,15 @@ def get_client():
     )
 
 
+def get_model(platform=None):
+    """获取平台关联的第一个模型 ID"""
+    platform = platform or get_platform()
+    model = platform.ai_configs.first()
+    if model is None:
+        raise RuntimeError("平台未关联任何模型，请在 admin 的 AiModels 中配置")
+    return model.name_type
+
+
 SYSTEM_PROMPT = """你是一个商城客服助手，名叫小美。
 你可以帮用户：搜索商品、推荐商品、查询订单状态、查询物流。
 规则：
@@ -34,7 +42,7 @@ SYSTEM_PROMPT = """你是一个商城客服助手，名叫小美。
 def chat(messages, tools=None):
     """调用 LLM，返回 message 对象"""
     resp = get_client().chat.completions.create(
-        model=settings.OPENAI_MODEL,  # 如 gpt-4o-mini
+        model=get_model(),
         messages=messages,
         tools=tools,
         tool_choice="auto" if tools else None,
