@@ -22,5 +22,6 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("blog/", include("blog.urls")),
     path("agents/", include("agents.urls")),
-    path("api/agent/", include("mall_agent.urls")),
+    path("mall/", include("mall.urls")),
+    path("mall-agent/", include("mall_agent.urls")),
 ]
